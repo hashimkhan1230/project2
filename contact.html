@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Full Stack Developer</title>
+  <style>
+    body { 
+      margin: 0;     
+      font-family: Arial, sans-serif;
+      background: white;
+      color: purple;
+    }
+
+    .navbar {
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: purple;
+    }
+
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      color: purple;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 0;
+      width: 100%;
+      background: rgba(128, 0, 128, 0.95);
+      overflow: hidden;
+      transition: height 0.4s ease;
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .menu-overlay.open {
+      height: 100%;
+    }
+
+    .menu-overlay ul {
+      list-style: none;
+      text-align: center;
+    }
+
+    .menu-overlay ul li {
+      margin: 20px 0;
+    }
+
+    .menu-overlay ul li a {
+      text-decoration: none;
+      font-size: 28px;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .menu-overlay ul li a:hover {
+      color: #ffccff;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .contact-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: purple;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: darkviolet;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">PolyTech</div>
+    <div class="hamburger" id="hamburger">☰</div>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <span class="close-btn" id="closeBtn">×</span>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <section class="contact-container">
+    <h1>Contact Me</h1>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const closeBtn = document.getElementById('closeBtn');
+
+    hamburger.addEventListener('click', () => {
+      menuOverlay.classList.add('open');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      menuOverlay.classList.remove('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menuOverlay.contains(e.target) && !hamburger.contains(e.target)) {
+        menuOverlay.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>

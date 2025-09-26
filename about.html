@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Full Stack Developer</title>
+  <style>
+    body { 
+      margin: 0;     
+      font-family: Arial, sans-serif;
+      background: white;
+      color: purple;
+    }
+
+ 
+    .navbar {
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: purple;
+    }
+
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      color: purple;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 0;
+      width: 100%;
+      background: rgba(128, 0, 128, 0.95);
+      overflow: hidden;
+      transition: height 0.4s ease;
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .menu-overlay.open {
+      height: 100%;
+    }
+
+    .menu-overlay ul {
+      list-style: none;
+      text-align: center;
+    }
+
+    .menu-overlay ul li {
+      margin: 20px 0;
+    }
+
+    .menu-overlay ul li a {
+      text-decoration: none;
+      font-size: 28px;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .menu-overlay ul li a:hover {
+      color: #ffccff;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+    }
+
+
+    .about {
+      max-width: 800px;
+      margin: 50px auto;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .about h1 {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .about p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .projects {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .projects h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .project-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .project {
+      width: 300px;
+      background: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+    }
+
+    .project img {
+      width: 100%;
+      border-radius: 10px;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .project h3 {
+      margin-top: 10px;
+      color: purple;
+    }
+
+ 
+    .skills {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .skills h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .skill {
+      text-align: center;
+      text-decoration: none;
+      color: black;
+      transition: transform 0.3s, box-shadow 0.3s;
+      width: 100px;
+    }
+
+    .skill img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .skill:hover {
+      transform: scale(1.1);
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">PolyTech</div>
+    <div class="hamburger" id="hamburger">☰</div>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <span class="close-btn" id="closeBtn">×</span>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <section class="about">
+    <h1>About Me</h1>
+    <p>
+      Hello! I am a <b>Full Stack Developer</b> passionate about building
+      modern, scalable, and user-friendly web applications.  
+      I work with both <b>Frontend</b> and <b>Backend</b> technologies to create seamless digital
+      experiences. My aim is to deliver high-quality solutions that help
+      businesses grow and users enjoy.
+    </p>
+  </section>
+
+<section class="projects">
+  <h2>My Projects</h2>
+  <div class="project-list">
+
+    <div class="project">
+      <a href="https://port-folio-c6b1.vercel.app/">
+        <img src="project1.jpg" alt="project1">
+      </a>
+    
+      <h3>Portfolio Website</h3>
+      <p>A personal portfolio to showcase skills and projects with animations and responsive design.</p>
+    </div>
+
+    <div class="project">
+    <a href="https://check-weather-beryl.vercel.app/">
+      <img src="project2.jpg" alt="project2">
+    </a>
+      <h3>Check weather</h3>
+      <p>In this website you will check the weather of your city.</p>
+    </div>
+
+  </div>
+</section>
+
+
+  <section class="skills">
+    <h2>My Skills</h2>
+    <div class="skills-container">
+
+      <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" class="skill">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+        <p>HTML</p>
+      </a>
+
+      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" class="skill">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+        <p>CSS</p>
+      </a>
+
+      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="skill">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS">
+        <p>JavaScript</p>
+      </a>
+
+      <a href="https://docs.python.org/3/" target="_blank" class="skill">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+        <p>Python</p>
+      </a>
+
+      <a href="https://isocpp.org/get-started" target="_blank" class="skill">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
+        <p>C++</p>
+      </a>
+
+      <a href="https://react.dev/learn" target="_blank" class="skill">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+        <p>React</p>
+      </a>
+
+      <a href="https://nodejs.org/en/learn" target="_blank" class="skill">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+        <p>Node.js</p>
+      </a>
+
+      <a href="https://www.mongodb.com/docs/" target="_blank" class="skill">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+        <p>MongoDB</p>
+      </a>
+
+    </div>
+  </section>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const closeBtn = document.getElementById('closeBtn');
+
+    hamburger.addEventListener('click', () => {
+      menuOverlay.classList.add('open');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      menuOverlay.classList.remove('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menuOverlay.contains(e.target) && !hamburger.contains(e.target)) {
+        menuOverlay.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('project.jpg') no-repeat center center/cover;
+    }
+
+    .login-box {
+      width: 320px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      text-align: center;
+      color: white;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .input-box {
+      margin: 15px 0;
+      position: relative;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 12px 10px;
+      border: none;
+      outline: none;
+      background: transparent;
+      border-bottom: 2px solid #fff;
+      color: white;
+      font-size: 16px;
+    }
+
+    .input-box input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>Login Here</h2>
+    <form>
+      <div class="input-box">
+        <input type="text" placeholder="Username" required>
+      </div>
+      <div class="input-box">
+        <input type="password" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
+
+</body>
+</html>
