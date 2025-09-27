@@ -99,23 +99,35 @@
       overflow: hidden;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: transform 0.3s;
+      padding-bottom: 20px;
     }
 
     .course-card:hover { transform: translateY(-5px); }
     .course-card img { width: 100%; height: 180px; object-fit: cover; }
     .course-card h3 { margin: 15px 0 10px; color: purple; }
     .course-card p { padding: 0 15px 15px; color: #333; }
+
     .btn {
       display: inline-block;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
       padding: 10px 20px;
       background: purple;
       color: white;
       border-radius: 6px;
       text-decoration: none;
       transition: 0.3s;
+      cursor: pointer;
     }
     .btn:hover { background: #a020a0; }
+
+    .video-link {
+      display: inline-block;
+      margin-top: 5px;
+      color: purple;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .video-link:hover { color: #a020a0; }
 
     /* Why Choose Us */
     .why-us {
@@ -207,30 +219,57 @@
     <div class="courses-grid">
       <div class="course-card">
         <img src="webdev.jpg" alt="Web Development">
-        <h3>Web Development</h3>
+        <h3>HTML</h3>
         <p>Learn HTML, CSS, JavaScript, and build responsive websites.</p>
-        <a href="#" class="btn">Enroll Now</a>
+        <a href="#" class="btn">Enroll Now</a><br>
+        <a href="https://youtu.be/HcOc7P5BMi4?si=h1MId7r2K3KAx1bl   "  target="_blank" class="video-link">Watch One Shot Video</a>
       </div>
+
       <div class="course-card">
         <img src="python.jpg" alt="Python">
         <h3>Python Programming</h3>
         <p>Master Python for automation, data analysis, and web development.</p>
-        <a href="#" class="btn">Enroll Now</a>
+        <a href="#" class="btn">Enroll Now</a><br>
+        <a href="https://youtu.be/vLqTf2b6GZw?si=g8KFgkFyvQoBKzPe" target="_blank" class="video-link">Watch One Shot Video</a>
       </div>
+
       <div class="course-card">
         <img src="dsa.jpg" alt="DSA">
         <h3>Data Structures & Algorithms</h3>
         <p>Understand DSA concepts for coding interviews and problem-solving.</p>
-        <a href="#" class="btn">Enroll Now</a>
+        <a href="#" class="btn">Enroll Now</a><br>
+        <a href="https://youtu.be/J0OvDNmAWNw?si=z4fDEDZkR4OLZ3L5" target="_blank" class="video-link">Watch One Shot Video</a>
       </div>
+
       <div class="course-card">
         <img src="fullstack.jpg" alt="Full Stack">
         <h3>Full Stack Development</h3>
         <p>Frontend + Backend development using modern technologies.</p>
-        <a href="#" class="btn">Enroll Now</a>
+        <a href="#" class="btn">Enroll Now</a><br>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="video-link">Watch One Shot Video</a>
       </div>
     </div>
   </section>
+
+  <!-- Enrollment Form Modal -->
+  <div id="enrollModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:3000;">
+    <div style="background:white; padding:30px; border-radius:12px; max-width:500px; width:90%; position:relative;">
+      <span id="closeEnroll" style="position:absolute; top:10px; right:15px; font-size:28px; cursor:pointer; color:purple;">&times;</span>
+      <h2 style="color:purple; text-align:center; margin-bottom:20px;">Enroll in Course</h2>
+      <form id="enrollForm">
+        <label for="name">Full Name</label><br>
+        <input type="text" id="name" name="name" placeholder="Your full name" style="width:100%; padding:10px; margin:10px 0; border-radius:6px; border:1px solid #ccc;" required><br>
+
+        <label for="email">Email</label><br>
+        <input type="email" id="email" name="email" placeholder="Your email" style="width:100%; padding:10px; margin:10px 0; border-radius:6px; border:1px solid #ccc;" required><br>
+
+        <label for="course">Course</label><br>
+        <input type="text" id="course" name="course" placeholder="Selected course" style="width:100%; padding:10px; margin:10px 0; border-radius:6px; border:1px solid #ccc;" readonly><br>
+
+        <button type="submit" style="background:purple; color:white; padding:12px 20px; border:none; border-radius:6px; cursor:pointer; width:100%; font-size:16px;">Submit</button>
+      </form>
+    </div>
+  </div>
 
   <!-- Why Choose Us -->
   <section class="why-us">
@@ -289,22 +328,47 @@
   </footer>
 
   <script>
+    // Hamburger Menu
     const hamburger = document.getElementById('hamburger');
     const menuOverlay = document.getElementById('menuOverlay');
     const closeBtn = document.getElementById('closeBtn');
 
-    hamburger.addEventListener('click', () => {
-      menuOverlay.classList.add('open');
-    });
-    closeBtn.addEventListener('click', () => {
-      menuOverlay.classList.remove('open');
-    });
+    hamburger.addEventListener('click', () => { menuOverlay.classList.add('open'); });
+    closeBtn.addEventListener('click', () => { menuOverlay.classList.remove('open'); });
     document.addEventListener('click', (e) => {
       if (!menuOverlay.contains(e.target) && !hamburger.contains(e.target)) {
         menuOverlay.classList.remove('open');
       }
     });
-  </script>
 
+    // Enroll Modal
+    const enrollButtons = document.querySelectorAll('.btn');
+    const enrollModal = document.getElementById('enrollModal');
+    const closeEnroll = document.getElementById('closeEnroll');
+    const courseInput = document.getElementById('course');
+
+    enrollButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const courseName = btn.closest('.course-card').querySelector('h3').innerText;
+        courseInput.value = courseName;
+        enrollModal.style.display = 'flex';
+      });
+    });
+
+    closeEnroll.addEventListener('click', () => { enrollModal.style.display = 'none'; });
+    window.addEventListener('click', (e) => {
+      if (e.target === enrollModal) { enrollModal.style.display = 'none'; }
+    });
+
+    // Form submission
+    const enrollForm = document.getElementById('enrollForm');
+    enrollForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert(`Thank you, ${document.getElementById('name').value}, for enrolling in ${courseInput.value}!`);
+      enrollForm.reset();
+      enrollModal.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
