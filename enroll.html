@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enroll Now | PolyTech</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9ff;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .enroll-container {
+      max-width: 500px;
+      margin: 80px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .enroll-container h1 {
+      color: purple;
+      margin-bottom: 25px;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    form input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    form button {
+      background: purple;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    form button:hover {
+      background: #a020f0;
+      transform: scale(1.05);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      color: purple;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    .back-link:hover { color: #a020f0; }
+  </style>
+</head>
+<body>
+
+  <div class="enroll-container">
+    <h1>Enroll Now</h1>
+    <form id="enrollForm">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name"  required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="course">Course Name</label>
+      <input type="text" id="course" name="course" required placeholder="e.g., Web Development">
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+
+  <script>
+    const form = document.getElementById('enrollForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert(` ${document.getElementById('name').value} welcome` );
+      form.reset();
+    });
+  </script>
+</body>
+</html>
