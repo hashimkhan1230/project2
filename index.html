@@ -13,17 +13,24 @@
     <div class="logo">PolyTech</div>
     <div class="hamburger" id="hamburger">☰</div>
   </nav>
+<!-- Overlay Menu -->
+<div class="menu-overlay" id="menuOverlay">
+  <span class="close-btn" id="closeBtn">×</span>
+  
+  <!-- Welcome Name -->
+  <div id="welcomeUser" class="welcome-user">Welcome, <span id="user-name"></span>!</div>
+  
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="signup.html">Sign Up</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><button id="logout-btn" style="display:none;">Logout</button></li>
+  </ul>
+</div>
 
-  <!-- Overlay Menu -->
-  <div class="menu-overlay" id="menuOverlay">
-    <span class="close-btn" id="closeBtn">×</span>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="courses.html">Courses</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -39,23 +46,20 @@
       <div class="course-card">
         <img src="css.jpg" alt="Web Development">
         <h3>CSS</h3>
-       
         <a href="enroll.html" class="btn enroll-btn" data-course="Web Development">Enroll Now</a><br>
-        <a href="https://youtu.be/ESnrn1kAD4E?si=5Nwof66VSn_xklyN" class="video-link" data-course="webdev">Watch One Shot Video</a>
+        <a href="#" class="video-link" data-course="webdev">Watch One Shot Video</a>
       </div>
       <div class="course-card">
         <img src="aiml.jpg" alt="AI & ML">
         <h3>AI & Machine Learning</h3>
-      
         <a href="enroll.html" class="btn enroll-btn" data-course="AI & ML">Enroll Now</a><br>
-        <a href="https://www.youtube.com/live/hhGPiDrUe1c?si=tQZZIxQ3hz1X0fC0" class="video-link" data-course="aiml">Watch One Shot Video</a>
+        <a href="#" class="video-link" data-course="aiml">Watch One Shot Video</a>
       </div>
       <div class="course-card">
         <img src="cyber.jpg" alt="Cyber Security">
         <h3>Cyber Security</h3>
-     
         <a href="enroll.html" class="btn enroll-btn" data-course="Cyber Security">Enroll Now</a><br>
-        <a href="https://youtu.be/v3iUx2SNspY?si=2Fia_7L5JBxiBpA8" class="video-link" data-course="cyber">Watch One Shot Video</a>
+        <a href="#" class="video-link" data-course="cyber">Watch One Shot Video</a>
       </div>
     </div>
   </section>
@@ -66,11 +70,11 @@
     <div class="roadmap-grid">
       <div class="roadmap-card">
         <h3>HTML</h3>
-        <p>Learn website structure: headings, paragraphs, links, images, lists, forms, tables, and semantic tags.</p>
+        <p>Learn website structure: headings, paragraphs, links, images, lists, forms, tables, semantic tags.</p>
       </div>
       <div class="roadmap-card">
         <h3>CSS</h3>
-        <p>Style your website: colors, fonts, layouts, flexbox, grid, responsiveness, animations, and media queries.</p>
+        <p>Style your website: colors, fonts, layouts, flexbox, grid, responsiveness, animations, media queries.</p>
       </div>
       <div class="roadmap-card">
         <h3>JavaScript</h3>
@@ -116,15 +120,6 @@
         <p>Phone: +91 98765 43210</p>
         <p>Location: New Delhi, India</p>
       </div>
-      <div class="footer-section social">
-        <h3>Follow Us</h3>
-        <div class="social-icons">
-          <a href="#"><img src="facebook.png" alt="Facebook"></a>
-          <a href="#"><img src="twitter.png" alt="Twitter"></a>
-          <a href="#"><img src="instagram.png" alt="Instagram"></a>
-          <a href="#"><img src="linkedin.png" alt="LinkedIn"></a>
-        </div>
-      </div>
     </div>
     <div class="footer-bottom">
       <p>© 2025 PolyTech. All Rights Reserved.</p>
@@ -140,23 +135,6 @@
     </div>
   </div>
 
-  <!-- Enroll Modal -->
-  <div id="enrollModal">
-    <div class="modal-content">
-      <span class="close-enroll" id="closeEnroll">&times;</span>
-      <h2 id="enrollTitle"></h2>
-      <form id="enrollForm">
-        <label>Name:</label><br>
-        <input type="text" name="name" required><br><br>
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
-        <label>Phone:</label><br>
-        <input type="tel" name="phone" required><br><br>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>
