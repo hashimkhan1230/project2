@@ -2,16 +2,16 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/fireba
 import { getAuth, signInWithEmailAndPassword } 
 from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBHimP5R4zkPlU65ZiC2yYZcOCj06ckmHM",
   authDomain: "poly-tech-fda4d.firebaseapp.com",
   projectId: "poly-tech-fda4d",
-  storageBucket: "poly-tech-fda4d.firebasestorage.app",
+  storageBucket: "poly-tech-fda4d.appspot.com",
   messagingSenderId: "327994274289",
   appId: "1:327994274289:web:e89432fea4c1936f989450",
   measurementId: "G-2EYRV196G0"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -35,3 +35,4 @@ loginForm.addEventListener("submit", (e) => {
       alert("Error: " + error.message);
     });
 });
+
