@@ -1,21 +1,54 @@
-// Select elements
-const hamburger = document.getElementById("hamburger");
-const menuOverlay = document.getElementById("menuOverlay");
-const closeBtn = document.getElementById("closeBtn");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-// Open overlay when hamburger clicked
-hamburger.addEventListener("click", () => {
-  menuOverlay.classList.add("open");
-});
+const firebaseConfig = {
+  apiKey: "AIzaSyBHimP5R4zkPlU65ZiC2yYZcOCj06ckmHM",
+  authDomain: "poly-tech-fda4d.firebaseapp.com",
+  projectId: "poly-tech-fda4d",
+  storageBucket: "poly-tech-fda4d.firebasestorage.app",
+  messagingSenderId: "327994274289",
+  appId: "1:327994274289:web:e89432fea4c1936f989450",
+  measurementId: "G-2EYRV196G0"
+};
 
-// Close overlay when × clicked
-closeBtn.addEventListener("click", () => {
-  menuOverlay.classList.remove("open");
-});
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Optional: close overlay if clicked outside the menu links
-menuOverlay.addEventListener("click", (e) => {
-  if (e.target === menuOverlay) {
-    menuOverlay.classList.remove("open");
-  }
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const closeBtn = document.getElementById('closeBtn');
+  const userNameEl = document.getElementById('user-name');
+  const logoutBtn = document.getElementById('logout-btn');
+  const signupLink = document.querySelector('.signup-link');
+  const loginLink = document.querySelector('.login-link');
+
+  hamburger.addEventListener('click', () => menuOverlay.classList.add('open'));
+  closeBtn.addEventListener('click', () => menuOverlay.classList.remove('open'));
+  document.addEventListener('click', (e) => {
+    if (!menuOverlay.contains(e.target) && !hamburger.contains(e.target)) {
+      menuOverlay.classList.remove('open');
+    }
+  });
+
+  // --- Auth state ---
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      const name = user.email.split('@')[0]; // get name only
+      userNameEl.innerText = `Welcome, ${name}`;
+      userNameEl.style.display = "inline";
+      logoutBtn.style.display = "inline";
+      if (signupLink) signupLink.style.display = "none";
+      if (loginLink) loginLink.style.display = "none";
+    } else {
+      userNameEl.style.display = "none";
+      logoutBtn.style.display = "none";
+      if (signupLink) signupLink.style.display = "inline";
+      if (loginLink) loginLink.style.display = "inline";
+    }
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    signOut(auth).then(() => window.location.href="login.html");
+  });
 });
