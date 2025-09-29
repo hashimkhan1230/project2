@@ -6,19 +6,73 @@
   <title>Login | PolyTech</title>
   <style>
     body {
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: #f9f9ff;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
     }
 
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: purple;
+      color: white;
+      padding: 12px 20px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: purple;
+        flex-direction: column;
+        width: 200px;
+        padding: 15px;
+        border-radius: 0 0 10px 10px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+
+    /* Login Box */
     .login-container {
       max-width: 400px;
-      margin: 100px auto 50px auto;
+      margin: 100px auto;
       background: white;
       padding: 30px;
       border-radius: 12px;
@@ -28,23 +82,15 @@
 
     .login-container h1 {
       color: purple;
-      margin-bottom: 25px;
-    }
-
-    form label {
-      display: block;
-      text-align: left;
-      margin: 15px 0 5px;
-      font-weight: bold;
-      color: #444;
+      margin-bottom: 20px;
     }
 
     form input {
       width: 100%;
       padding: 10px;
-      border-radius: 6px;
+      margin: 10px 0;
       border: 1px solid #ccc;
-      margin-bottom: 10px;
+      border-radius: 6px;
       font-size: 16px;
     }
 
@@ -65,64 +111,50 @@
       transform: scale(1.05);
     }
 
-    .login-container p {
+    .msg {
       margin-top: 15px;
       font-size: 14px;
-    }
-
-    .login-container a {
-      color: purple;
-      text-decoration: underline;
-    }
-
-    .login-container a:hover {
-      color: #a020f0;
-    }
-
-    #loginMsg {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    /* Footer same as index.html */
-    .footer {
-      background: #eee;
-      text-align: center;
-      padding: 15px 10px;
-      margin-top: auto;
-      font-size: 14px;
-      color: #555;
+      color: red;
     }
   </style>
 </head>
 <body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">PolyTech</div>
+    <div class="hamburger" id="hamburger">☰</div>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="courses.html">Courses</a>
+      <a href="contact.html">Contact</a>
+      <a href="signup.html">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- Login Box -->
   <div class="login-container">
     <h1>Login</h1>
     <form id="loginForm">
-      <label>Email:</label>
-      <input type="email" id="email" required>
-      <label>Password:</label>
-      <input type="password" id="password" required>
+      <input type="email" id="email" placeholder="Enter Email" required>
+      <input type="password" id="password" placeholder="Enter Password" required>
       <button type="submit">Login</button>
     </form>
-    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-    <p id="loginMsg"></p>
+    <div class="msg" id="msg"></div>
   </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>© 2025 PolyTech. All Rights Reserved.</p>
-  </footer>
-
+  <!-- Firebase + Auth Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
+    // Your Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyBHimP5R4zkPlU65ZiC2yYZcOCj06ckmHM",
       authDomain: "poly-tech-fda4d.firebaseapp.com",
       projectId: "poly-tech-fda4d",
-      storageBucket: "poly-tech-fda4d.firebasestorage.app",
+      storageBucket: "poly-tech-fda4d.appspot.com",
       messagingSenderId: "327994274289",
       appId: "1:327994274289:web:e89432fea4c1936f989450",
       measurementId: "G-2EYRV196G0"
@@ -131,23 +163,34 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    const loginForm = document.getElementById('loginForm');
-    const loginMsg = document.getElementById('loginMsg');
+    const loginForm = document.getElementById("loginForm");
+    const msg = document.getElementById("msg");
 
-    loginForm.addEventListener('submit', async (e) => {
+    loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        loginMsg.style.color = "green";
-        loginMsg.innerText = "Login Successful! Redirecting...";
-        setTimeout(() => window.location.href = "index.html", 1500);
-      } catch (err) {
-        loginMsg.style.color = "red";
-        loginMsg.innerText = err.message;
+        msg.style.color = "green";
+        msg.innerText = "Login successful ✅ Redirecting...";
+        setTimeout(() => {
+          window.location.href = "index.html"; // Redirect after login
+        }, 1500);
+      } catch (error) {
+        msg.style.color = "red";
+        msg.innerText = "Error: " + error.message;
       }
+    });
+
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
     });
   </script>
 </body>
