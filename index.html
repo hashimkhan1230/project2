@@ -13,24 +13,21 @@
     <div class="logo">PolyTech</div>
     <div class="hamburger" id="hamburger">☰</div>
   </nav>
-<!-- Overlay Menu -->
-<div class="menu-overlay" id="menuOverlay">
-  <span class="close-btn" id="closeBtn">×</span>
-  
-  <!-- Welcome Name -->
-  <div id="welcomeUser" class="welcome-user">Welcome, <span id="user-name"></span>!</div>
-  
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="courses.html">Courses</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="signup.html">Sign Up</a></li>
-    <li><a href="login.html">Login</a></li>
-    <li><button id="logout-btn" style="display:none;">Logout</button></li>
-  </ul>
-</div>
 
+  <!-- Overlay Menu -->
+  <div class="menu-overlay" id="menuOverlay">
+    <span class="close-btn" id="closeBtn">×</span>
+    <ul>
+      <li id="user-name" style="display:none;">Welcome, User</li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="signup.html" class="signup-link">Sign Up</a></li>
+      <li><a href="login.html" class="login-link">Login</a></li>
+      <li><button id="logout-btn" style="display:none;">Logout</button></li>
+    </ul>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -47,94 +44,61 @@
         <img src="css.jpg" alt="Web Development">
         <h3>CSS</h3>
         <a href="enroll.html" class="btn enroll-btn" data-course="Web Development">Enroll Now</a><br>
-        <a href="#" class="video-link" data-course="webdev">Watch One Shot Video</a>
+        <a href="https://youtu.be/ESnrn1kAD4E?si=5Nwof66VSn_xklyN" class="video-link">Watch One Shot Video</a>
       </div>
       <div class="course-card">
         <img src="aiml.jpg" alt="AI & ML">
         <h3>AI & Machine Learning</h3>
         <a href="enroll.html" class="btn enroll-btn" data-course="AI & ML">Enroll Now</a><br>
-        <a href="#" class="video-link" data-course="aiml">Watch One Shot Video</a>
+        <a href="https://www.youtube.com/live/hhGPiDrUe1c?si=tQZZIxQ3hz1X0fC0" class="video-link">Watch One Shot Video</a>
       </div>
       <div class="course-card">
         <img src="cyber.jpg" alt="Cyber Security">
         <h3>Cyber Security</h3>
         <a href="enroll.html" class="btn enroll-btn" data-course="Cyber Security">Enroll Now</a><br>
-        <a href="#" class="video-link" data-course="cyber">Watch One Shot Video</a>
+        <a href="https://youtu.be/v3iUx2SNspY?si=2Fia_7L5JBxiBpA8" class="video-link">Watch One Shot Video</a>
       </div>
     </div>
   </section>
 
-  <!-- Roadmap Section -->
-  <section class="roadmap">
-    <h2>Learning Roadmap</h2>
-    <div class="roadmap-grid">
-      <div class="roadmap-card">
-        <h3>HTML</h3>
-        <p>Learn website structure: headings, paragraphs, links, images, lists, forms, tables, semantic tags.</p>
-      </div>
-      <div class="roadmap-card">
-        <h3>CSS</h3>
-        <p>Style your website: colors, fonts, layouts, flexbox, grid, responsiveness, animations, media queries.</p>
-      </div>
-      <div class="roadmap-card">
-        <h3>JavaScript</h3>
-        <p>Add interactivity: variables, loops, functions, DOM manipulation, events, form validation, ES6 features.</p>
-      </div>
-      <div class="roadmap-card">
-        <h3>Advanced Courses</h3>
-        <p>Python, DSA, Full Stack, React, Node.js, Databases, Deployment. Build real projects and level up your skills!</p>
-      </div>
+  
+<!-- Footer (updated) -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h2>PolyTech</h2>
+      <p>Shaping the future of technology through innovation, learning, and creativity. Join us in building a smarter tomorrow.</p>
     </div>
-  </section>
-
-  <!-- Why Choose Us -->
-  <section class="why-us">
-    <h2>Why Choose PolyTech?</h2>
-    <ul>
-      <li>✔ Experienced Faculty</li>
-      <li>✔ Hands-on Learning</li>
-      <li>✔ Industry-Oriented Courses</li>
-      <li>✔ 24/7 Learning Support</li>
-    </ul>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-section about">
-        <h2>PolyTech</h2>
-        <p>Shaping the future of technology through innovation, learning, and creativity. Join us in building a smarter tomorrow.</p>
-      </div>
-      <div class="footer-section links">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-section contact">
-        <h3>Contact Us</h3>
-        <p>Email: <a href="mailto:info@polytech.com">info@polytech.com</a></p>
-        <p>Phone: +91 98765 43210</p>
-        <p>Location: New Delhi, India</p>
-      </div>
+    <div class="footer-section links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
-    <div class="footer-bottom">
-      <p>© 2025 PolyTech. All Rights Reserved.</p>
+    <div class="footer-section contact">
+      <h3>Contact Us</h3>
+      <p>Email: <a href="mailto:info@polytech.com">info@polytech.com</a></p>
+      <p>Phone: +91 98765 43210</p>
+      <p>Location: New Delhi, India</p>
     </div>
-  </footer>
-
-  <!-- Video Modal -->
-  <div id="videoModal">
-    <div class="modal-content">
-      <span class="close-video" id="closeVideo">&times;</span>
-      <h2 id="videoTitle"></h2>
-      <p id="videoContent"></p>
+    <div class="footer-section social">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><img src="facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="twitter.png" alt="Twitter"></a>
+        <a href="#"><img src="instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="linkedin.png" alt="LinkedIn"></a>
+      </div>
     </div>
   </div>
+  <div class="footer-bottom">
+    <p>© 2025 PolyTech. All Rights Reserved.</p>
+  </div>
+</footer>
 
-<script type="module" src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
