@@ -385,3 +385,16 @@ body {
   color:#333;
   line-height:1.6;
 }
+/* --- Notices --- */
+.notice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.notice {
+  background: rgba(255,240,255,0.8);
+  padding: 12px;
+  border-left: 6px solid var(--purple);
+  border-radius: 8px;
+}
+
