@@ -407,62 +407,67 @@ body {
   flex-direction: column;
   gap: 15px;
 }
-
-/* Individual notice card */
-.notice {
-  background: rgba(255, 240, 255, 0.85);
-  border-left: 6px solid var(--purple);
-  padding: 15px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(128, 0, 128, 0.1);
-  font-size: 16px;
-  color: var(--muted);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: default;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 50px;
 }
 
-.notice:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(128, 0, 128, 0.2);
-}
-.notices {
-  padding: 40px 20px;
+.container {
   background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  width: 400px;
+}
+
+h2 {
   text-align: center;
-  margin-bottom: 50px;
+  color: #800080;
+  margin-bottom: 20px;
 }
 
-.notices h2 {
-  font-size: 28px;
-  color: var(--purple);
-  margin-bottom: 25px;
-}
-
-.notice-list {
+.form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-top: 20px; /* Add spacing from heading */
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.notice {
-  background: rgba(255, 240, 255, 0.85);
-  border-left: 6px solid var(--purple);
-  padding: 15px 20px;
-  border-radius: 12px;
-  color: var(--muted);
-  font-size: 16px;
-  box-shadow: 0 4px 12px rgba(128,0,128,0.1);
+.form input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.notice-admin {
-  margin-top: 25px;
+.form button {
+  padding: 10px;
+  background: #800080;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
+.form button:hover {
+  background: #b19bff;
+}
 
+#board-list {
+  list-style: none;
+  padding: 0;
+}
 
+#board-list li {
+  margin: 8px 0;
+  padding: 10px;
+  border-left: 5px solid #800080;
+  border-radius: 5px;
+  background: #f8e1ff;
+}
 
 
 
