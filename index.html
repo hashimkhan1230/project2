@@ -61,12 +61,18 @@
     </div>
   </section>
   <section id="notices" class="container notices">
-      <h2>Notices & Announcements</h2>
-      <div id="noticeList" class="notice-list" aria-live="polite"></div>
-      <div class="notice-admin">
-        <button id="adminAddNotice" class="secondary-btn">Admin: Add Notice</button>
-      </div>
-    </section>
+      <div class="container">
+
+    <h2>Notice & Announcement Board</h2>
+
+    <div class="form">
+      <input type="text" id="type" placeholder="Type: notice / announcement">
+      <input type="text" id="content" placeholder="Enter your notice or announcement">
+      <button id="addBtn">Add</button>
+    </div>
+
+    <ul id="board-list"></ul>
+  </div>
 
   
 <!-- Footer (updated) -->
@@ -109,5 +115,6 @@
   <script type="module" src="script.js"></script>
 </body>
 </html>
+
 
 
