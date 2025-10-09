@@ -407,67 +407,61 @@ body {
   flex-direction: column;
   gap: 15px;
 }
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 50px;
+
+/* Individual notice card */
+.notice {
+  background: rgba(255, 240, 255, 0.85);
+  border-left: 6px solid var(--purple);
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(128, 0, 128, 0.1);
+  font-size: 16px;
+  color: var(--muted);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
 }
 
-.container {
-  background: #fff;
-  padding: 20px 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  width: 400px;
+.notice:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(128, 0, 128, 0.2);
 }
 
-h2 {
-  text-align: center;
-  color: #800080;
-  margin-bottom: 20px;
+/* Admin button styling */
+.notice-admin {
+  margin-top: 25px;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.form input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.form button {
-  padding: 10px;
-  background: #800080;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+.notice-admin .secondary-btn {
+  background: transparent;
+  border: 2px solid var(--purple);
+  color: var(--purple);
+  padding: 8px 16px;
+  border-radius: 12px;
   cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s ease;
 }
 
-.form button:hover {
-  background: #b19bff;
+.notice-admin .secondary-btn:hover {
+  background: var(--purple);
+  color: #fff;
+  transform: scale(1.05);
 }
 
-#board-list {
-  list-style: none;
-  padding: 0;
+/* Responsive */
+@media (max-width: 768px) {
+  .notices h2 {
+    font-size: 28px;
+  }
+  .notice {
+    font-size: 15px;
+    padding: 12px 16px;
+  }
+  .notice-admin .secondary-btn {
+    padding: 6px 12px;
+  }
 }
 
-#board-list li {
-  margin: 8px 0;
-  padding: 10px;
-  border-left: 5px solid #800080;
-  border-radius: 5px;
-  background: #f8e1ff;
-}
 
 
 
