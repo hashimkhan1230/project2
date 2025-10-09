@@ -52,3 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
     signOut(auth).then(() => window.location.href="login.html");
   });
 });
+
+* ---------- Simple "notice board" with admin add (demo) ---------- */
+const noticeList = $('#noticeList');
+const adminAddNotice = $('#adminAddNotice');
+
+function renderNotices(){
+  const notices = JSON.parse(localStorage.getItem('poly_notices') || '[]');
+  if(notices.length === 0){
+    noticeList.innerHTML = `<div class="notice">No notices yet.</div>`;
+    return;
+  }
+  noticeList.innerHTML = notices.map(n => `
+    <div class="notice" role="article">
+      <strong>${escapeHtml(n.title)}</strong>
+      <small>${new Date(n.time).toLocaleString()}</small>
+      <div>${escapeHtml(n.body)}</div>
+    </div>
+  `).join('');
+}
