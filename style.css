@@ -385,16 +385,82 @@ body {
   color:#333;
   line-height:1.6;
 }
-/* --- Notices --- */
+/* --- Notices Section --- */
+.notices {
+  padding: 50px 20px;
+  background: linear-gradient(180deg, rgba(230, 200, 255, 0.1), rgba(255, 255, 255, 0.1));
+  border-radius: 15px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.notices h2 {
+  font-size: 32px;
+  color: var(--purple);
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+/* Notice list container */
 .notice-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 15px;
 }
+
+/* Individual notice card */
 .notice {
-  background: rgba(255,240,255,0.8);
-  padding: 12px;
+  background: rgba(255, 240, 255, 0.85);
   border-left: 6px solid var(--purple);
-  border-radius: 8px;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(128, 0, 128, 0.1);
+  font-size: 16px;
+  color: var(--muted);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
 }
+
+.notice:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(128, 0, 128, 0.2);
+}
+
+/* Admin button styling */
+.notice-admin {
+  margin-top: 25px;
+}
+
+.notice-admin .secondary-btn {
+  background: transparent;
+  border: 2px solid var(--purple);
+  color: var(--purple);
+  padding: 8px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.notice-admin .secondary-btn:hover {
+  background: var(--purple);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .notices h2 {
+    font-size: 28px;
+  }
+  .notice {
+    font-size: 15px;
+    padding: 12px 16px;
+  }
+  .notice-admin .secondary-btn {
+    padding: 6px 12px;
+  }
+}
+
+
 
