@@ -61,18 +61,15 @@
     </div>
   </section>
   <section id="notices" class="container notices">
-      <div class="container">
-
-    <h2>Notice & Announcement Board</h2>
-
-    <div class="form">
-      <input type="text" id="type" placeholder="Type: notice / announcement">
-      <input type="text" id="content" placeholder="Enter your notice or announcement">
-      <button id="addBtn">Add</button>
-    </div>
-
-    <ul id="board-list"></ul>
+  <h2>Notices & Announcements</h2>
+  <div id="noticeList" class="notice-list" aria-live="polite">
+    <div class="notice">New Web Development batch starts from 15th Oct.</div>
+    <div class="notice">AI & ML workshop registration open till 20th Oct.</div>
   </div>
+  <div class="notice-admin">
+    <button id="adminAddNotice" class="secondary-btn">Admin: Add Notice</button>
+  </div>
+</section>
 
   
 <!-- Footer (updated) -->
@@ -115,6 +112,7 @@
   <script type="module" src="script.js"></script>
 </body>
 </html>
+
 
 
 
