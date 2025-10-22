@@ -1,5 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+// ---------------- Firebase Setup ----------------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBHimP5R4zkPlU65ZiC2yYZcOCj06ckmHM",
@@ -7,67 +9,140 @@ const firebaseConfig = {
   projectId: "poly-tech-fda4d",
   storageBucket: "poly-tech-fda4d.firebasestorage.app",
   messagingSenderId: "327994274289",
-  appId: "1:327994274289:web:e89432fea4c1936f989450",
-  measurementId: "G-2EYRV196G0"
+  appId: "1:327994274289:web:2021aa0d02dbdb79989450",
+  measurementId: "G-B4W12BEGQH"
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const db = getFirestore(app);
+const auth = getAuth();
 
-document.addEventListener('DOMContentLoaded', () => {
-  const hamburger = document.getElementById('hamburger');
-  const menuOverlay = document.getElementById('menuOverlay');
-  const closeBtn = document.getElementById('closeBtn');
-  const userNameEl = document.getElementById('user-name');
-  const logoutBtn = document.getElementById('logout-btn');
-  const signupLink = document.querySelector('.signup-link');
-  const loginLink = document.querySelector('.login-link');
+// ---------------- Helpers ----------------
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
 
-  hamburger.addEventListener('click', () => menuOverlay.classList.add('open'));
-  closeBtn.addEventListener('click', () => menuOverlay.classList.remove('open'));
-  document.addEventListener('click', (e) => {
-    if (!menuOverlay.contains(e.target) && !hamburger.contains(e.target)) {
-      menuOverlay.classList.remove('open');
-    }
-  });
+function escapeHtml(str = '') {
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
 
-  // --- Auth state ---
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      const name = user.email.split('@')[0]; // get name only
-      userNameEl.innerText = `Welcome, ${name}`;
-      userNameEl.style.display = "inline";
-      logoutBtn.style.display = "inline";
-      if (signupLink) signupLink.style.display = "none";
-      if (loginLink) loginLink.style.display = "none";
-    } else {
-      userNameEl.style.display = "none";
-      logoutBtn.style.display = "none";
-      if (signupLink) signupLink.style.display = "inline";
-      if (loginLink) loginLink.style.display = "inline";
-    }
-  });
-
-  logoutBtn.addEventListener('click', () => {
-    signOut(auth).then(() => window.location.href="login.html");
-  });
-});
-
-* ---------- Simple "notice board" with admin add (demo) ---------- */
-const noticeList = $('#noticeList');
+// ---------------- Navbar Elements ----------------
+const userNameLi = $('#user-name');
+const logoutNavbarBtn = $('#logout-btn');
+const loginLinks = $$('.login-link');
+const signupLinks = $$('.signup-link');
 const adminAddNotice = $('#adminAddNotice');
 
-function renderNotices(){
-  const notices = JSON.parse(localStorage.getItem('poly_notices') || '[]');
-  if(notices.length === 0){
-    noticeList.innerHTML = `<div class="notice">No notices yet.</div>`;
+// ---------------- Hamburger Menu ----------------
+const hamburger = $('#hamburger');
+const menuOverlay = $('#menuOverlay');
+const closeBtn = $('#closeBtn');
+
+function openMenu() { menuOverlay.classList.add('open'); }
+function closeMenu() { menuOverlay.classList.remove('open'); }
+
+hamburger?.addEventListener('click', openMenu);
+closeBtn?.addEventListener('click', closeMenu);
+menuOverlay?.addEventListener('click', e => { if(e.target === menuOverlay) closeMenu(); });
+
+// ---------------- Show / Hide User UI ----------------
+function showUserUI(user){
+    if(!user) return;
+    userNameLi.style.display='block';
+    userNameLi.textContent = `Hey, ${user.email.split('@')[0]}`;
+    logoutNavbarBtn.style.display='inline-block';
+    loginLinks.forEach(a => a.style.display='none');
+    signupLinks.forEach(a => a.style.display='none');
+
+    // Admin check
+    const adminEmails = ["admin@polytech.com"];
+    if(adminEmails.includes(user.email)){
+        adminAddNotice.style.display = 'inline-block';
+    } else {
+        adminAddNotice.style.display = 'none';
+    }
+}
+
+function hideUserUI(){
+    userNameLi.style.display='none';
+    logoutNavbarBtn.style.display='none';
+    loginLinks.forEach(a => a.style.display='inline-block');
+    signupLinks.forEach(a => a.style.display='inline-block');
+    adminAddNotice.style.display='none';
+}
+
+// ---------------- Logout ----------------
+logoutNavbarBtn.addEventListener('click', async ()=>{
+    await signOut(auth);
+    hideUserUI();
+    closeMenu();
+    window.location.href = 'index.html';
+});
+
+// ---------------- Notices (Firebase) ----------------
+const noticeList = $('#noticeList');
+
+async function renderNotices() {
+  const q = query(collection(db,'notices'),orderBy('time','desc'));
+  const snapshot = await getDocs(q);
+  if(snapshot.empty){
+    noticeList.innerHTML=`<div class="notice">No notices yet.</div>`;
     return;
   }
-  noticeList.innerHTML = notices.map(n => `
-    <div class="notice" role="article">
-      <strong>${escapeHtml(n.title)}</strong>
-      <small>${new Date(n.time).toLocaleString()}</small>
-      <div>${escapeHtml(n.body)}</div>
-    </div>
-  `).join('');
+  noticeList.innerHTML='';
+  snapshot.forEach(doc=>{
+    const n = doc.data();
+    const div = document.createElement('div');
+    div.className='notice';
+    div.innerHTML=`<strong>${escapeHtml(n.title)}</strong> <small>${new Date(n.time?.toDate?.()||n.time).toLocaleString()}</small> <div>${escapeHtml(n.body)}</div>`;
+    noticeList.appendChild(div);
+  });
 }
+
+// ---------------- Admin Add Notice ----------------
+adminAddNotice?.addEventListener('click', async () => {
+  const user = auth.currentUser;
+
+  if(!user){
+    alert("⚠️ You must login as Admin first to add a notice.");
+    window.location.href = 'admin-reggs.html';
+    return;
+  }
+
+  const adminEmails = ["admin@polytech.com"];
+  if(!adminEmails.includes(user.email)){
+    alert("❌ You are not authorized to add notices.");
+    return;
+  }
+
+  const title = prompt("Enter Notice Title") || "Notice";
+  const body = prompt("Enter Notice Body") || "";
+
+  try {
+    await addDoc(collection(db,'notices'),{
+      title,
+      body,
+      time: serverTimestamp()
+    });
+    alert("✅ Notice added successfully!");
+    renderNotices();
+  } catch(err){
+    alert("Error adding notice: " + err.message);
+  }
+});
+
+// ---------------- Initialize ----------------
+document.addEventListener('DOMContentLoaded', ()=>{ renderNotices(); });
+
+// ---------------- Auth State Listener ----------------
+onAuthStateChanged(auth, user => {
+    if(user){
+        showUserUI(user);
+    } else {
+        hideUserUI();
+    }
+});
+
+// ---------------- Close menu with ESC ----------------
+document.addEventListener('keydown', e=>{
+    if(e.key==='Escape' && menuOverlay.classList.contains('open')) closeMenu();
+});
