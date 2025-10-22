@@ -1,51 +1,77 @@
-/* --- General Reset & Body --- */
+/* --------------------
+   GLOBAL STYLES
+-------------------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
   background: #fff;
   color: #333;
+  line-height: 1.6;
 }
 
-/* --- Navbar --- */
+/* --------------------
+   NAVBAR
+-------------------- */
 .navbar {
   background: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 40px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 18px 40px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  padding: 10px 35px;
+  box-shadow: 0 2px 12px rgba(128,0,128,0.15);
 }
 
 .logo {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
   color: purple;
+  letter-spacing: 1px;
+  transition: transform 0.3s;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .hamburger {
-  font-size: 28px;
+  font-size: 30px;
   cursor: pointer;
   color: purple;
+  transition: transform 0.3s ease;
 }
 
+.hamburger:hover {
+  transform: rotate(90deg);
+}
+
+/* --------------------
+   OVERLAY MENU
+-------------------- */
 .menu-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 0; /* Initially hidden */
+  height: 0;
   background: rgba(128, 0, 128, 0.95);
   overflow: hidden;
-  transition: height 0.4s ease;
-  z-index: 2000; /* Must be higher than navbar */
+  transition: height 0.5s ease-in-out;
+  z-index: 2000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,17 +79,16 @@ body {
 }
 
 .menu-overlay.open {
-  height: 100%; /* When open, show full overlay */
+  height: 100%;
 }
 
 .menu-overlay ul {
   list-style: none;
   text-align: center;
-  padding: 0;
 }
 
 .menu-overlay ul li {
-  margin: 20px 0;
+  margin: 22px 0;
 }
 
 .menu-overlay ul li a {
@@ -71,74 +96,50 @@ body {
   font-size: 28px;
   color: white;
   font-weight: bold;
-  transition: 0.3s;
+  transition: color 0.3s, transform 0.3s;
 }
 
 .menu-overlay ul li a:hover {
   color: #ffccff;
+  transform: scale(1.1);
 }
-
-
 
 .close-btn {
   position: absolute;
-  top: 20px;
+  top: 25px;
   right: 40px;
-  font-size: 40px;
+  font-size: 42px;
   color: white;
   cursor: pointer;
-}
-/* --- Welcome User --- */
-.welcome-user {
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: slideDown 1s forwards;
+  transition: transform 0.3s ease;
 }
 
-@keyframes slideDown {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* --- User Name & Logout Button --- */
-#user-name, #logout-btn {
-  color: white;
-  font-weight: bold;
-  font-size: 24px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  margin-top: 10px;
-  transition: color 0.3s;
+.close-btn:hover {
+  transform: rotate(90deg);
 }
 
-#user-name:hover, #logout-btn:hover {
-  color: #ffccff;
-}
-
-/* --- Hero Section --- */
+/* --------------------
+   HERO SECTION
+-------------------- */
 .hero {
-  height: 80vh;
+  min-height: 80vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   text-align: center;
+  padding: 0 20px;
+  animation: fadeIn 1s ease-in;
 }
 
 .hero h1 {
-  font-size: 50px;
+  font-size: 52px;
   color: purple;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .hero p {
-  font-size: 22px;
+  font-size: 20px;
   color: #555;
   margin-bottom: 30px;
 }
@@ -147,317 +148,284 @@ body {
   background: purple;
   color: white;
   border: none;
-  padding: 14px 28px;
+  padding: 14px 32px;
   font-size: 18px;
   border-radius: 30px;
   cursor: pointer;
   font-weight: bold;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(128,0,128,0.2);
 }
 
 .hero button:hover {
   background: #a020f0;
-  transform: scale(1.05);
+  transform: scale(1.07);
+  box-shadow: 0 6px 15px rgba(128,0,128,0.3);
 }
 
-/* --- Courses Section --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------
+   COURSES SECTION
+-------------------- */
 .courses-container {
   max-width: 1200px;
-  margin: 50px auto;
+  margin: 70px auto;
   padding: 20px;
   text-align: center;
 }
 
 .courses-container h2 {
-  font-size: 32px;
+  font-size: 34px;
   color: purple;
   margin-bottom: 40px;
+  position: relative;
+}
+
+.courses-container h2::after {
+  content: "";
+  width: 80px;
+  height: 3px;
+  background: purple;
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 5px;
 }
 
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
 }
 
 .course-card {
-  background: #f9f9f9;
+  background: #fafafa;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-  padding-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .course-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(128,0,128,0.15);
 }
 
 .course-card img {
   width: 100%;
-  height: 180px;
+  height: 190px;
   object-fit: cover;
 }
 
 .course-card h3 {
-  margin: 15px 0 10px;
   color: purple;
+  margin: 16px 0 10px;
 }
 
 .btn {
-  display: inline-block;
-  margin-bottom: 10px;
-  padding: 10px 20px;
   background: purple;
   color: white;
-  border-radius:6px;
+  border-radius: 6px;
   text-decoration: none;
-  transition:0.3s;
+  padding: 10px 22px;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
 }
 
 .btn:hover {
-  background:#a020a0;
+  background: #a020f0;
+  transform: scale(1.05);
 }
 
 .video-link {
-  display:inline-block;
-  margin-top:5px;
-  color:purple;
-  text-decoration:underline;
-  cursor:pointer;
+  color: purple;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-/* --- Roadmap Section --- */
-.roadmap {
-  padding:60px 20px;
-  text-align:center;
-  background:#f9f9ff;
+.video-link:hover {
+  color: #a020f0;
 }
 
-.roadmap h2 {
-  font-size:32px;
-  color:purple;
-  margin-bottom:40px;
-}
-
-.roadmap-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
-  max-width:1200px;
-  margin:auto;
-}
-
-.roadmap-card {
-  background:white;
-  padding:25px;
-  border-radius:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-
-.roadmap-card h3 {
-  color:purple;
-  margin-bottom:15px;
-}
-
-/* --- Why Choose Us --- */
-.why-us {
-  padding:50px 20px;
-  text-align:center;
-}
-
-.why-us h2 {
-  margin-bottom:30px;
-  color:purple;
-}
-
-.why-us ul {
-  list-style:none;
-  font-size:18px;
-  line-height:2;
-  color:#444;
-}
-
-/* --- Footer --- */
-.footer {
-  background: purple;
-  color: white;
-  padding: 50px 20px 20px;
-  margin-top: 40px;
-}
-
-.footer-container {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
-  max-width:1200px;
-  margin:auto;
-}
-
-.footer-section h2, .footer-section h3 {
-  margin-bottom:15px;
-  font-weight:bold;
-  color:#ffccff;
-}
-
-.footer-section p, .footer-section ul, .footer-section a {
-  font-size:15px;
-  color:#f2f2f2;
-  line-height:1.8;
-  text-decoration:none;
-  transition:0.3s;
-}
-
-.footer-section a:hover {
-  color:#ffd6ff;
-}
-
-.footer-section ul {
-  list-style:none;
-  padding:0;
-}
-
-.footer-section ul li {
-  margin:8px 0;
-}
-
-/* --- Social Icons --- */
-.social-icons a img {
-  width:28px;
-  margin-right:10px;
-  transition:0.3s;
-  filter:brightness(0) invert(1);
-}
-
-.social-icons a img:hover {
-  transform:scale(1.2);
-}
-
-.footer-bottom {
-  text-align:center;
-  margin-top:30px;
-  border-top:1px solid rgba(255,255,255,0.2);
-  padding-top:15px;
-  font-size:14px;
-  color:#ddd;
-}
-
-/* --- Video Modal --- */
-#videoModal {
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-  justify-content:center;
-  align-items:center;
-  z-index:4000;
-}
-
-#videoModal .modal-content {
-  background:white;
-  padding:30px;
-  border-radius:12px;
-  max-width:600px;
-  width:90%;
-  position:relative;
-}
-
-#videoModal .close-video {
-  position:absolute;
-  top:10px;
-  right:15px;
-  font-size:28px;
-  cursor:pointer;
-  color:purple;
-}
-
-#videoModal h2 {
-  color:purple;
-  text-align:center;
-  margin-bottom:15px;
-}
-
-#videoModal p {
-  text-align:left;
-  color:#333;
-  line-height:1.6;
-}
-/* --- Notices Section --- */
+/* --------------------
+   NOTICES SECTION
+-------------------- */
 .notices {
-  padding: 50px 20px;
-  background: linear-gradient(180deg, rgba(230, 200, 255, 0.1), rgba(255, 255, 255, 0.1));
+  padding: 60px 20px;
+  background: linear-gradient(180deg, rgba(230, 200, 255, 0.1), rgba(255, 255, 255, 0.2));
   border-radius: 15px;
-  margin-bottom: 50px;
+  margin: 60px auto;
   text-align: center;
+  max-width: 1100px;
 }
 
 .notices h2 {
   font-size: 32px;
-  color: var(--purple);
-  margin-bottom: 30px;
+  color: purple;
   font-weight: 700;
+  margin-bottom: 30px;
 }
 
-/* Notice list container */
 .notice-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* Individual notice card */
 .notice {
-  background: rgba(255, 240, 255, 0.85);
-  border-left: 6px solid var(--purple);
-  padding: 15px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(128, 0, 128, 0.1);
+  background: rgba(255, 240, 255, 0.9);
+  border-left: 6px solid purple;
+  padding: 15px 22px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(128,0,128,0.1);
   font-size: 16px;
-  color: var(--muted);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: default;
+  color: #444;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .notice:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(128, 0, 128, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(128,0,128,0.2);
 }
 
-/* Admin button styling */
 .notice-admin {
   margin-top: 25px;
 }
 
-.notice-admin .secondary-btn {
+.secondary-btn {
   background: transparent;
-  border: 2px solid var(--purple);
-  color: var(--purple);
-  padding: 8px 16px;
-  border-radius: 12px;
+  border: 2px solid purple;
+  color: purple;
+  padding: 8px 18px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
-.notice-admin .secondary-btn:hover {
-  background: var(--purple);
-  color: #fff;
+.secondary-btn:hover {
+  background: purple;
+  color: white;
   transform: scale(1.05);
 }
 
-/* Responsive */
+/* --------------------
+   FOOTER
+-------------------- */
+.footer {
+  background: purple;
+  color: white;
+  padding: 50px 20px;
+  margin-top: 60px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-section h2, .footer-section h3 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #ffccff;
+}
+
+.footer-section p, .footer-section ul, .footer-section a {
+  font-size: 15px;
+  color: #f2f2f2;
+  line-height: 1.8;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section a:hover {
+  color: #ffd6ff;
+}
+
+.social-icons a img {
+  width: 28px;
+  margin-right: 10px;
+  transition: 0.3s;
+  filter: brightness(0) invert(1);
+}
+
+.social-icons a img:hover {
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 15px;
+  font-size: 14px;
+  color: #ddd;
+}
+
+/* --------------------
+   RESPONSIVE DESIGN
+-------------------- */
 @media (max-width: 768px) {
-  .notices h2 {
+  .hero h1 {
+    font-size: 36px;
+  }
+  .hero p {
+    font-size: 18px;
+  }
+  .courses-container h2 {
     font-size: 28px;
   }
-  .notice {
-    font-size: 15px;
-    padding: 12px 16px;
-  }
-  .notice-admin .secondary-btn {
-    padding: 6px 12px;
+  .navbar {
+    padding: 14px 25px;
   }
 }
+/* ---------------- Navbar User Display ---------------- */
+#user-name {
+  display: none; /* default hidden, show only after login */
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #ffd700;
+}
+
+#logout-btn {
+  display: none; /* default hidden, show only after login */
+  background: #ff4500;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#logout-btn:hover {
+  background: #e03e00;
+}
+
+/* Hide login/signup links after login */
+.menu-overlay .login-link,
+.menu-overlay .signup-link {
+  display: block; /* default visible */
+}
+
+.menu-overlay.logged-in .login-link,
+.menu-overlay.logged-in .signup-link {
+  display: none; /* hide when logged in */
+}
+
+/* Show username and logout when logged in */
+.menu-overlay.logged-in #user-name,
+.menu-overlay.logged-in #logout-btn {
+  display: block;
+}
+ 
