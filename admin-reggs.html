@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Registration - PolyTech</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7f2ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .register-container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(128,0,128,0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    h2 { color: purple; margin-bottom: 20px; }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: purple;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover { background: #a020f0; }
+    #regMsg { margin-top: 10px; font-weight: bold; }
+    .login-link {
+      margin-top: 15px;
+      display: inline-block;
+      color: purple;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDeJKgU9U5qqqEnsbPTcUN_qcdsrqvCn78",
+      authDomain: "adminpas-e64c2.firebaseapp.com",
+      projectId: "adminpas-e64c2",
+      storageBucket: "adminpas-e64c2.firebasestorage.app",
+      messagingSenderId: "935332826237",
+      appId: "1:935332826237:web:d2c155db58dec6aa56f514",
+      measurementId: "G-2N6072LV7Q"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const regForm = document.getElementById('registerForm');
+    const regMsg = document.getElementById('regMsg');
+
+    regForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        regMsg.style.color = 'green';
+        regMsg.textContent = '✅ Registration successful! Redirecting to login...';
+        setTimeout(() => {
+          window.location.href = 'admin-login.html';
+        }, 1500);
+      } catch (err) {
+        regMsg.style.color = 'red';
+        regMsg.textContent = '❌ Error: ' + err.message;
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Admin Registration</h2>
+    <form id="registerForm">
+      <input type="email" id="regEmail" placeholder="Admin Email" required>
+      <input type="password" id="regPassword" placeholder="Password (6+ characters)" required>
+      <button type="submit">Register</button>
+    </form>
+    <div id="regMsg"></div>
+    <a class="login-link" href="admin-login.html">Already have an account? Login</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - PolyTech</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f7f2ff; margin:0; padding:0; }
+    .container { max-width: 600px; margin: 50px auto; background:white; padding:30px; border-radius:12px; box-shadow:0 8px 20px rgba(128,0,128,0.2); }
+    h2 { text-align:center; color: purple; margin-bottom:20px; }
+    input, textarea { width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ccc; font-size:16px; }
+    button { width:100%; padding:12px; background: purple; color:white; font-size:16px; border:none; border-radius:8px; cursor:pointer; margin-top:10px; }
+    button:hover { background:#a020f0; }
+    #logoutBtn { background:#555; margin-top:20px; }
+    #logoutBtn:hover { background:#333; }
+    .notice-list { margin-top:30px; }
+    .notice-card { background:#f3e6ff; padding:15px; border-left:6px solid purple; margin-bottom:15px; border-radius:8px; }
+    .notice-card h4 { margin:0 0 5px; color:purple; }
+    .notice-card p { margin:0; color:#333; }
+    #errorMsg { color:red; margin-top:10px; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Panel</h2>
+
+    <div id="authSection">
+      <input type="email" id="adminEmail" placeholder="Admin Email" required>
+      <input type="password" id="adminPassword" placeholder="Password" required>
+      <button id="loginBtn">Login</button>
+      <button id="signupBtn">Sign Up</button>
+      <div id="errorMsg"></div>
+    </div>
+
+    <div id="panelSection" style="display:none;">
+      <h3>Add Notice</h3>
+      <input type="text" id="noticeTitle" placeholder="Notice Title" required>
+      <textarea id="noticeBody" placeholder="Notice Body" rows="4" required></textarea>
+      <button id="addNoticeBtn">Add Notice</button>
+      <button id="logoutBtn">Logout</button>
+      <div class="notice-list" id="noticeList"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBHimP5R4zkPlU65ZiC2yYZcOCj06ckmHM",
+      authDomain: "poly-tech-fda4d.firebaseapp.com",
+      projectId: "poly-tech-fda4d",
+      storageBucket: "poly-tech-fda4d.firebasestorage.app",
+      messagingSenderId: "327994274289",
+      appId: "1:327994274289:web:2021aa0d02dbdb79989450"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const authSection = document.getElementById('authSection');
+    const panelSection = document.getElementById('panelSection');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const errorMsg = document.getElementById('errorMsg');
+
+    const noticeTitle = document.getElementById('noticeTitle');
+    const noticeBody = document.getElementById('noticeBody');
+    const addNoticeBtn = document.getElementById('addNoticeBtn');
+    const noticeList = document.getElementById('noticeList');
+
+    function escapeHtml(str=''){ return String(str).replace(/[&<>\"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    function showPanel(){
+      authSection.style.display='none';
+      panelSection.style.display='block';
+      loadNotices();
+    }
+
+    function showAuth(){
+      authSection.style.display='block';
+      panelSection.style.display='none';
+    }
+
+    signupBtn.addEventListener('click', async()=>{
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+      errorMsg.textContent='';
+      try{
+        await createUserWithEmailAndPassword(auth,email,password);
+        errorMsg.style.color='green';
+        errorMsg.textContent='Signup successful!';
+      }catch(err){
+        errorMsg.style.color='red';
+        errorMsg.textContent=err.message;
+      }
+    });
+
+    loginBtn.addEventListener('click', async()=>{
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+      errorMsg.textContent='';
+      try{
+        await signInWithEmailAndPassword(auth,email,password);
+      }catch(err){
+        errorMsg.style.color='red';
+        errorMsg.textContent=err.message;
+      }
+    });
+
+    logoutBtn.addEventListener('click', async()=>{
+      await signOut(auth);
+      showAuth();
+    });
+
+    onAuthStateChanged(auth,user=>{
+      if(user){ showPanel(); } else { showAuth(); }
+    });
+
+    async function loadNotices(){
+      noticeList.innerHTML='';
+      const q = query(collection(db,'notices'),orderBy('time','desc'));
+      const snapshot = await getDocs(q);
+      if(snapshot.empty){ noticeList.innerHTML='<p>No notices yet.</p>'; return; }
+      snapshot.forEach(doc=>{
+        const n=doc.data();
+        const div = document.createElement('div');
+        div.className='notice-card';
+        div.innerHTML=`<h4>${escapeHtml(n.title)}</h4><p>${escapeHtml(n.body)}</p>`;
+        noticeList.appendChild(div);
+      });
+    }
+
+    addNoticeBtn.addEventListener('click', async()=>{
+      const title = noticeTitle.value.trim();
+      const body = noticeBody.value.trim();
+      if(!title||!body){ alert('Fill both fields!'); return; }
+      await addDoc(collection(db,'notices'),{title,body,time:serverTimestamp()});
+      noticeTitle.value='';
+      noticeBody.value='';
+      loadNotices();
+      alert('Notice added successfully!');
+    });
+
+  </script>
+</body>
+</html>
